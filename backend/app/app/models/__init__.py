@@ -1,2 +1,2 @@
-from .item import Item
+from .cocktail import Cocktail
 from .user import User
