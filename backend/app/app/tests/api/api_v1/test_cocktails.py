@@ -36,3 +36,4 @@ def test_read_cocktail(
     assert content["description"] == cocktail.description
     assert content["recipe"] == cocktail.recipe
     assert content["alcohol_degree"] == cocktail.alcohol_degree
+    # assert content["ingredients"] == cocktail.ingredients

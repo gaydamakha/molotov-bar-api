@@ -1,6 +1,12 @@
+from typing import List, TYPE_CHECKING
+
 from sqlalchemy import Column, Integer, String, Text, Float
+from sqlalchemy.orm import Mapped, relationship
 
 from app.db.base_class import Base
+
+if TYPE_CHECKING:
+    from .ingredient import Ingredient
 
 
 class Cocktail(Base):
@@ -11,3 +17,4 @@ class Cocktail(Base):
     description = Column(Text)
     recipe = Column(Text)
     alcohol_degree = Column(Float)
+    ingredients: Mapped[List["Ingredient"]] = relationship(cascade="all, delete")

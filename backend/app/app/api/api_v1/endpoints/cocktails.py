@@ -1,15 +1,27 @@
-from typing import Any, Dict, List
+from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app import crud, schemas, models
 from app.api import deps
+from app.schemas.cocktail import cocktail_example
 
 router = APIRouter()
 
 
-@router.get("/", response_model=Dict[str, List[schemas.Cocktail]])
+@router.get("/", response_model=schemas.ListOfCocktails, responses={
+    200: {
+        "content": {
+            "application/json": {
+                "example": {
+                    "cocktails": [cocktail_example.dict()]
+                },
+            }
+        },
+        "description": "Return the JSON item or an image.",
+    }
+}, )
 def read_cocktails(
         db: Session = Depends(deps.get_db),
         offset: int = 0,
