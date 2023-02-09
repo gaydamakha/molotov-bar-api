@@ -13,6 +13,7 @@ class CocktailBase(BaseModel):
     description: Optional[str] = None
     recipe: Optional[str] = None
     alcohol_degree: Optional[float] = None
+    category: Optional[str] = None
     ingredients: Optional[list[Ingredient]] = None
 
 
@@ -23,6 +24,7 @@ class CocktailCreate(CocktailBase):
     image_url: str
     description: str
     recipe: str
+    category: str
     ingredients: list[Ingredient]
 
 
@@ -40,6 +42,7 @@ class CocktailInDBBase(CocktailBase):
     description: str
     recipe: str
     alcohol_degree: Optional[float] = None
+    category: str
     ingredients: list[Ingredient]
 
     class Config:
@@ -67,6 +70,7 @@ cocktail_example = Cocktail(
     image_url="some/url",
     description="something",
     recipe="something else",
+    alcohol_degree=12.0,
+    category="Shots",
     ingredients=[ingredient_example],
 )
-

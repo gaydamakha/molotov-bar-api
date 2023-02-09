@@ -15,6 +15,7 @@ class CRUDCocktail(CRUDBase[Cocktail, CocktailCreate, CocktailUpdate]):
             description=obj_in.description,
             recipe=obj_in.recipe,
             alcohol_degree=obj_in.alcohol_degree,
+            category=obj_in.category,
             ingredients=[Ingredient(
                 name=i.name, title=i.title, measurement=i.measurement, quantity=i.quantity,
             ) for i in obj_in.ingredients]
