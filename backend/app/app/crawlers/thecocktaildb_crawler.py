@@ -43,19 +43,15 @@ def from_cocktail_db_json(json: dict) -> CocktailCreate:
     ingredients = []
     json_ingredients_keys = [k for k in json.keys() if k.startswith('strIngredient') and json[k] is not None]
     for key in json_ingredients_keys:
-        ingredient_name = json[key]
         key_index = key.replace('strIngredient', '')
-        measurement = str(json[f'strMeasure{key_index}']).strip()
         ingredients.append(Ingredient(
-            name='',
-            title=ingredient_name,
-            measurement=measurement,
+            name=json[key],
+            measurement=str(json[f'strMeasure{key_index}']).strip(),
             quantity=0,  # TODO: parse it somehow?
         ))
 
     return CocktailCreate(
-        name=json['idDrink'],
-        title=json['strDrink'],
+        name=json['strDrink'],
         image_url=json['strDrinkThumb'],
         description='',
         recipe=str(json['strInstructions']).strip(),

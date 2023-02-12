@@ -11,8 +11,7 @@ if TYPE_CHECKING:
 
 class Cocktail(Base):
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)  # TODO: fill it with a string unique id
-    title = Column(String, index=True)
+    name = Column(String, index=True)
     image_url = Column(String)
     description = Column(Text)  # TODO: fill it with some taste description
     recipe = Column(Text)
