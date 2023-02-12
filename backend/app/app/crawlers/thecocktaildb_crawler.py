@@ -1,5 +1,6 @@
 from typing import Generator
 
+import typer
 import requests
 from urllib.parse import urljoin
 
@@ -8,6 +9,10 @@ from app.db.session import SessionLocal
 from app.schemas import CocktailCreate, Ingredient
 
 base_url = 'https://www.thecocktaildb.com/api/json/v1/1/'
+
+
+def main():
+    import_cocktails()
 
 
 def import_cocktails():
@@ -69,5 +74,5 @@ def get_all_ingredients() -> Generator:
         yield ingredient['strIngredient1']
 
 
-if __name__ == '__main__':
-    import_cocktails()
+if __name__ == "__main__":
+    typer.run(main)
