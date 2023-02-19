@@ -1,4 +1,5 @@
 from .crud_cocktail import cocktail
+from .crud_ingredient import ingredient
 from .crud_user import user
 
 # For a new basic set of CRUD operations you could just do
