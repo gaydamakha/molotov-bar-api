@@ -10,27 +10,27 @@ from app.tests.utils.ingredients import create_random_ingredient_create
 
 def test_create_item(db: Session) -> None:
     name = random_lower_string()
-    title = random_lower_string()
     image_url = random_lower_string()
     description = random_lower_string()
     recipe = random_lower_string()
     alcohol_degree = random.uniform(0, 95)
+    category = random_lower_string()
     ingredients = [
         create_random_ingredient_create(),
         create_random_ingredient_create(),
     ]
     cocktail_in = CocktailCreate(
         name=name,
-        title=title,
         image_url=image_url,
         description=description,
         recipe=recipe,
         alcohol_degree=alcohol_degree,
+        category=category,
         ingredients=ingredients,
     )
     cocktail = crud.cocktail.create(db=db, obj_in=cocktail_in)
     assert cocktail.name == name
-    assert cocktail.title == title
+    assert cocktail.category == category
     assert cocktail.image_url == image_url
     assert cocktail.description == description
     assert cocktail.recipe == recipe
@@ -39,7 +39,6 @@ def test_create_item(db: Session) -> None:
     for k, i in enumerate(cocktail.ingredients):
         assert i.id is not None
         assert i.name == ingredients[k].name
-        assert i.title == ingredients[k].title
         assert i.measurement == ingredients[k].measurement
         assert i.quantity == ingredients[k].quantity
         assert i.cocktail_id == cocktail.id
@@ -47,22 +46,22 @@ def test_create_item(db: Session) -> None:
 
 def test_get_item(db: Session) -> None:
     name = random_lower_string()
-    title = random_lower_string()
     image_url = random_lower_string()
     description = random_lower_string()
     recipe = random_lower_string()
     alcohol_degree = random.uniform(0, 95)
+    category = random_lower_string()
     ingredients = [
         create_random_ingredient_create(),
         create_random_ingredient_create(),
     ]
     cocktail_in = CocktailCreate(
         name=name,
-        title=title,
         image_url=image_url,
         description=description,
         recipe=recipe,
         alcohol_degree=alcohol_degree,
+        category=category,
         ingredients=ingredients
     )
     cocktail = crud.cocktail.create(db=db, obj_in=cocktail_in)
@@ -70,16 +69,15 @@ def test_get_item(db: Session) -> None:
     assert stored_cocktail
     assert cocktail.id == stored_cocktail.id
     assert cocktail.name == stored_cocktail.name
-    assert cocktail.title == stored_cocktail.title
     assert cocktail.image_url == stored_cocktail.image_url
     assert cocktail.description == stored_cocktail.description
     assert cocktail.recipe == stored_cocktail.recipe
     assert cocktail.alcohol_degree == stored_cocktail.alcohol_degree
+    assert cocktail.category == stored_cocktail.category
     assert len(cocktail.ingredients) == len(ingredients)
     for k, i in enumerate(cocktail.ingredients):
         assert i.id is not None
         assert i.name == ingredients[k].name
-        assert i.title == ingredients[k].title
         assert i.measurement == ingredients[k].measurement
         assert i.quantity == ingredients[k].quantity
         assert i.cocktail_id == cocktail.id
@@ -102,22 +100,22 @@ def test_get_item(db: Session) -> None:
 #
 def test_delete_item(db: Session) -> None:
     name = random_lower_string()
-    title = random_lower_string()
     image_url = random_lower_string()
     description = random_lower_string()
     recipe = random_lower_string()
     alcohol_degree = random.uniform(0, 95)
+    category = random_lower_string()
     ingredients = [
         create_random_ingredient_create(),
         create_random_ingredient_create(),
     ]
     cocktail_in = CocktailCreate(
         name=name,
-        title=title,
         image_url=image_url,
         description=description,
         recipe=recipe,
         alcohol_degree=alcohol_degree,
+        category=category,
         ingredients=ingredients,
     )
     item = crud.cocktail.create(db=db, obj_in=cocktail_in)

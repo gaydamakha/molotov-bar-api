@@ -1,4 +1,4 @@
-FROM python:3.10
+FROM python:3.11
 
 WORKDIR /app/
 
@@ -14,6 +14,11 @@ COPY ./app/pyproject.toml ./app/poetry.lock* /app/
 # Allow installing dev dependencies to run tests
 ARG INSTALL_DEV=false
 RUN bash -c "if [ $INSTALL_DEV == 'true' ] ; then poetry install --no-root ; else poetry install --no-root --no-dev ; fi"
+
+# Install Cargo, the Rust package manager
+# Required to install jupyterlab
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
 
 # For development, Jupyter remote kernel, Hydrogen
 # Using inside the container:

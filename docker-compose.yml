@@ -119,7 +119,7 @@ services:
     env_file:
       - .env
     command:
-      - "--broker=amqp://guest@queue:5672//"
+      - "celery -A app.worker --broker=amqp://guest@queue:5672// flower"
       # For the "Broker" tab to work in the flower UI, uncomment the following command argument,
       # and change the queue service's image as well
       # - "--broker_api=http://guest:guest@queue:15672/api//"

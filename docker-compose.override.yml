@@ -32,6 +32,9 @@ services:
     ports:
       - "5050:5050"
 
+  queue:
+    platform: linux/arm64/v8
+
   flower:
     ports:
       - "5555:5555"

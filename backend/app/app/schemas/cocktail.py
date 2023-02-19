@@ -8,21 +8,21 @@ from app.schemas.ingredient import Ingredient, ingredient_example
 # Shared properties
 class CocktailBase(BaseModel):
     name: Optional[str] = None
-    title: Optional[str] = None
     image_url: Optional[str] = None
     description: Optional[str] = None
     recipe: Optional[str] = None
     alcohol_degree: Optional[float] = None
+    category: Optional[str] = None
     ingredients: Optional[list[Ingredient]] = None
 
 
 # Properties to receive on item creation
 class CocktailCreate(CocktailBase):
     name: str
-    title: str
     image_url: str
     description: str
     recipe: str
+    category: str
     ingredients: list[Ingredient]
 
 
@@ -35,11 +35,11 @@ class CocktailUpdate(CocktailBase):
 class CocktailInDBBase(CocktailBase):
     id: int
     name: str
-    title: str
     image_url: str
     description: str
     recipe: str
     alcohol_degree: Optional[float] = None
+    category: str
     ingredients: list[Ingredient]
 
     class Config:
@@ -63,10 +63,10 @@ class CocktailInDB(CocktailInDBBase):
 cocktail_example = Cocktail(
     id=1,
     name="Mojito",
-    title="SomeTitle",
     image_url="some/url",
     description="something",
     recipe="something else",
+    alcohol_degree=12.0,
+    category="Shots",
     ingredients=[ingredient_example],
 )
-
