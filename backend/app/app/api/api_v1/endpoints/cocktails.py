@@ -1,6 +1,6 @@
 from typing import Any
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
 from app import crud, schemas, models
@@ -24,14 +24,16 @@ router = APIRouter()
 }, )
 def read_cocktails(
         db: Session = Depends(deps.get_db),
-        offset: int = 0,
-        limit: int = 100,
+        offset: int = Query(default=0, ge=0),
+        limit: int = Query(default=100, ge=0),
+        keyword: str | None = Query(default=None, min_length=1, max_length=20),
+        ing: str | None = Query(default=None, min_length=1, max_length=20),
 ) -> Any:
     """
     Retrieve cocktails.
     """
     return {
-        'cocktails': crud.cocktail.get_multi(db, offset=offset, limit=limit)
+        'cocktails': crud.cocktail.get_multi(db, offset=offset, limit=limit, keyword=keyword, ing=ing)
     }
 
 

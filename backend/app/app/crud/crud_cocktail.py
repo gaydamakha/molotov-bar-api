@@ -1,3 +1,6 @@
+from typing import List
+
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.crud.base import CRUDBase
@@ -25,6 +28,18 @@ class CRUDCocktail(CRUDBase[Cocktail, CocktailCreate, CocktailUpdate]):
         db.commit()
         db.refresh(db_obj)
         return db_obj
+
+    def get_multi(
+            self, db: Session, *, offset: int = 0, limit: int = 100, keyword: str | None = None, ing: str | None = None,
+    ) -> List[Cocktail]:
+        query = select(Cocktail).offset(offset).limit(limit)
+        if keyword is not None:
+            query = query.where(Cocktail.name.ilike(f"%{keyword}%"))
+        if ing is not None:
+            query = query.where(
+                Cocktail.ingredients.any(Ingredient.name == ing)
+            )
+        return db.execute(query).scalars().all()
 
 
 cocktail = CRUDCocktail(Cocktail)

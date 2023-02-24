@@ -31,6 +31,10 @@ class Ingredient(IngredientInDBBase):
     pass
 
 
+class ListOfIngredients(BaseModel):
+    ingredients: list[str] = []
+
+
 # Properties stored in DB
 class IngredientInDB(IngredientInDBBase):
     pass
@@ -42,4 +46,3 @@ ingredient_example = Ingredient(
     quantity="2",
     measurement="piece"
 )
-
