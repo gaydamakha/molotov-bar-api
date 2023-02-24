@@ -25,10 +25,11 @@ def read_ingredients(
         db: Session = Depends(deps.get_db),
         offset: int = Query(default=0, ge=0),
         limit: int = Query(default=100, ge=0),
+        keyword: str | None = Query(default=None, max_length=15)
 ) -> Any:
     """
     Retrieve ingredients.
     """
     return {
-        'ingredients': crud.ingredient.get_multi(db, offset=offset, limit=limit)
+        'ingredients': crud.ingredient.get_multi(db, offset=offset, limit=limit, keyword=keyword)
     }
