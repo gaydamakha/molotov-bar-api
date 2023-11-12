@@ -26,10 +26,14 @@ def import_cocktails():
         json = response.json()
         for drink in json['drinks']:
             drink_id = drink['idDrink']
-            if drink_id not in stored_ids:
-                stored_ids.append(drink_id)
-                cocktail = get_by_id(drink_id)
-                crud.cocktail.create(db=db, obj_in=cocktail)
+            if drink_id in stored_ids:
+                continue
+            stored_ids.append(drink_id)
+            cocktail = get_by_id(drink_id)
+            if cocktail is None:
+                continue
+            ck = crud.cocktail.create(db=db, obj_in=cocktail)
+            print(f"created {drink_id} ({ck.id})")
 
 
 def get_by_id(drink_id: str) -> CocktailCreate | None:
