@@ -1,4 +1,6 @@
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.11
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.11-slim
+
+RUN apt-get update && apt-get install -y curl
 
 WORKDIR /app/
 
